@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
                     if (receivedEvents != null) {
                         for (EventData receivedEvent : receivedEvents) {
                             String msg = new String(receivedEvent.getBytes(), Charset.defaultCharset());
-//                            txtview.setText(msg);
+
+                            txtview.setText(msg);
 
                             Log.e(this.getClass().getName(),msg + "TTTTTTTTTTTTTTTTT");
 
