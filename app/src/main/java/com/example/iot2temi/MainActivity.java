@@ -36,8 +36,8 @@ import java.util.concurrent.ScheduledExecutorService;
 public class MainActivity extends AppCompatActivity {
 
     TextView txtview;
-    Button btnStart;
-    Button btnStop;
+//    Button btnStart;
+//    Button btnStop;
 
     // az iot hub show --query properties.eventHubEndpoints.events.endpoint --name {your IoT Hub name}
     private static final String eventHubsCompatibleEndpoint = "sb://iothub-ns-xdk2iot-3630662-a0007a5c12.servicebus.windows.net/";
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         txtview = findViewById(R.id.txtview);
-        btnStart = findViewById(R.id.btnStart);
-        btnStop = findViewById(R.id.btnStop);
+//        btnStart = findViewById(R.id.btnStart);
+//        btnStop = findViewById(R.id.btnStop);
         BasicConfigurator.configure();
         start();
     }
