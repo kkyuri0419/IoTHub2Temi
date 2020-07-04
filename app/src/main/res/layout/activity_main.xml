@@ -116,7 +116,8 @@
         app:gaugeEndValue="40"
         app:gaugeStartAngle="179"
         app:gaugeStartValue="20"
-        app:gaugeStrokeColor="@color/pink1"
+        app:gaugePointEndColor="@color/pink1"
+        app:gaugePointStartColor="@color/pink1"
         app:gaugeStrokeWidth="25dp"
         app:gaugeSweepAngle="181"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -124,7 +125,8 @@
         app:layout_constraintHorizontal_bias="0.172"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.647"
+        app:gaugeStrokeColor="@color/grey"/>
 
     <pl.pawelkleczkowski.customgauge.CustomGauge
         android:id="@+id/gauge2"
@@ -132,10 +134,11 @@
         android:layout_height="150dp"
         android:layout_below="@+id/progress1"
         android:layout_centerHorizontal="true"
-        app:gaugeEndValue="40"
+        app:gaugeEndValue="50"
         app:gaugeStartAngle="179"
-        app:gaugeStartValue="20"
-        app:gaugeStrokeColor="@color/pink2"
+        app:gaugeStartValue="30"
+        app:gaugePointEndColor="@color/pink2"
+        app:gaugePointStartColor="@color/pink2"
         app:gaugeStrokeWidth="25dp"
         app:gaugeSweepAngle="181"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -143,7 +146,8 @@
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.647"
+        app:gaugeStrokeColor="@color/grey"/>
 
     <pl.pawelkleczkowski.customgauge.CustomGauge
         android:id="@+id/gauge3"
@@ -154,7 +158,8 @@
         app:gaugeEndValue="40"
         app:gaugeStartAngle="180"
         app:gaugeStartValue="20"
-        app:gaugeStrokeColor="@color/lightgreen"
+        app:gaugePointEndColor="@color/lightgreen"
+        app:gaugePointStartColor="@color/lightgreen"
         app:gaugeStrokeWidth="25dp"
         app:gaugeSweepAngle="180"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -162,7 +167,8 @@
         app:layout_constraintHorizontal_bias="0.846"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.647"
+        app:gaugeStrokeColor="@color/grey"/>
     <!--    <Button-->
 <!--        android:id="@+id/btnStart"-->
 <!--        android:layout_width="wrap_content"-->

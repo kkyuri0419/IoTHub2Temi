@@ -1,6 +1,8 @@
 package com.example.iot2temi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import pl.pawelkleczkowski.customgauge.CustomGauge;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
     TextView txtview;
     TextView tempShowtxt;
     TextView humShowtxt;
+    CustomGauge gauge1;
+    CustomGauge gauge2;
+    CustomGauge gauge3;
+    ProgressBar progress1;
+
 //    Button btnStart;
 //    Button btnStop;
 
@@ -62,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
         txtview = findViewById(R.id.txtview);
         tempShowtxt = findViewById(R.id.tempShowtxt);
         humShowtxt = findViewById(R.id.humShowtxt);
+        gauge1 = findViewById(R.id.gauge1);
+        gauge2 = findViewById(R.id.gauge2);
+        gauge3 = findViewById(R.id.gauge3);
+        progress1 = findViewById(R.id.progress1);
 //        btnStart = findViewById(R.id.btnStart);
 //        btnStop = findViewById(R.id.btnStop);
         BasicConfigurator.configure();
@@ -117,6 +129,15 @@ public class MainActivity extends AppCompatActivity {
 
                             tempShowtxt.setText(tempval);
                             humShowtxt.setText(humval);
+
+                            int inttemp = (int)Math.round(Double.valueOf(tempval));
+                            int inthum = (Double.valueOf(humval).intValue());
+
+//                            for
+                            gauge1.setValue(inttemp);
+                            gauge2.setValue(inthum);
+//                            progress1.setProgress(Integer.parseInt(tempval));
+
 
                             System.out.println(String.format("Telemetry received:\n %s",
                                     new String(receivedEvent.getBytes(), Charset.defaultCharset())));
