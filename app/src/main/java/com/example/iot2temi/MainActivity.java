@@ -36,6 +36,8 @@ import java.util.concurrent.ScheduledExecutorService;
 public class MainActivity extends AppCompatActivity {
 
     TextView txtview;
+    TextView tempShowtxt;
+    TextView humShowtxt;
 //    Button btnStart;
 //    Button btnStop;
 
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         txtview = findViewById(R.id.txtview);
+        tempShowtxt = findViewById(R.id.tempShowtxt);
+        humShowtxt = findViewById(R.id.humShowtxt);
 //        btnStart = findViewById(R.id.btnStart);
 //        btnStop = findViewById(R.id.btnStop);
         BasicConfigurator.configure();
@@ -93,10 +97,26 @@ public class MainActivity extends AppCompatActivity {
                     if (receivedEvents != null) {
                         for (EventData receivedEvent : receivedEvents) {
                             String msg = new String(receivedEvent.getBytes(), Charset.defaultCharset());
+                            String msg2 = new String(receivedEvent.getBytes(), Charset.defaultCharset());
 
                             txtview.setText(msg);
 
+
                             Log.e(this.getClass().getName(),msg + "TTTTTTTTTTTTTTTTT");
+
+//                            Object s = receivedEvent.getObject().;
+
+                            int i = msg.indexOf(":");
+                            int y = msg.indexOf("y");
+                            String tempval = msg.substring(i+2,i+7);
+                            String humval = msg.substring(y+3,y+9);
+
+
+                            Log.e(this.getClass().getName(),tempval + "QQQQQQQQQQQQQQQ");
+                            Log.e(this.getClass().getName(),humval + "RRRRRRRRRRRRRR");
+
+                            tempShowtxt.setText(tempval);
+                            humShowtxt.setText(humval);
 
                             System.out.println(String.format("Telemetry received:\n %s",
                                     new String(receivedEvent.getBytes(), Charset.defaultCharset())));

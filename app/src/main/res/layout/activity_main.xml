@@ -19,22 +19,151 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.436" />
+        app:layout_constraintVertical_bias="0.126" />
 
     <TextView
         android:id="@+id/txtview"
         android:layout_width="316dp"
         android:layout_height="60dp"
-        android:text="Hello World!"
         android:gravity="center_horizontal|center_vertical"
+        android:text="Hello World!"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/holo_blue_dark"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.175" />
 
-<!--    <Button-->
+    <TextView
+        android:id="@+id/tempShowtxt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/gauge1"
+        app:layout_constraintRight_toRightOf="@id/gauge1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51" />
+
+    <TextView
+        android:id="@+id/temtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="TEMPERATURE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/gauge1"
+        app:layout_constraintRight_toRightOf="@id/gauge1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.56" />
+
+    <TextView
+        android:id="@+id/humShowtxt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintLeft_toLeftOf="@id/gauge2"
+        app:layout_constraintRight_toRightOf="@id/gauge2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51" />
+
+    <TextView
+        android:id="@+id/humtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="HUMIDITY"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/gauge2"
+        app:layout_constraintRight_toRightOf="@id/gauge2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.56" />
+
+    <ProgressBar
+        android:id="@+id/progress1"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="316dp"
+        android:layout_height="17dp"
+        android:max="40"
+        android:min="20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.959" />
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/progress1"
+        android:layout_centerHorizontal="true"
+        app:gaugeEndValue="40"
+        app:gaugeStartAngle="179"
+        app:gaugeStartValue="20"
+        app:gaugeStrokeColor="@color/pink1"
+        app:gaugeStrokeWidth="25dp"
+        app:gaugeSweepAngle="181"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.647" />
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/progress1"
+        android:layout_centerHorizontal="true"
+        app:gaugeEndValue="40"
+        app:gaugeStartAngle="179"
+        app:gaugeStartValue="20"
+        app:gaugeStrokeColor="@color/pink2"
+        app:gaugeStrokeWidth="25dp"
+        app:gaugeSweepAngle="181"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.647" />
+
+    <pl.pawelkleczkowski.customgauge.CustomGauge
+        android:id="@+id/gauge3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/progress1"
+        android:layout_centerHorizontal="true"
+        app:gaugeEndValue="40"
+        app:gaugeStartAngle="180"
+        app:gaugeStartValue="20"
+        app:gaugeStrokeColor="@color/lightgreen"
+        app:gaugeStrokeWidth="25dp"
+        app:gaugeSweepAngle="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.846"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.647" />
+    <!--    <Button-->
 <!--        android:id="@+id/btnStart"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->

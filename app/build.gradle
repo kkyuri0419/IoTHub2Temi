@@ -21,6 +21,9 @@ android {
         sourceCompatibility = 1.8
     }
 }
+repositories {
+    jcenter()
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -33,6 +36,9 @@ dependencies {
 
     implementation 'org.slf4j:slf4j-api:1.7.29'
     implementation 'org.slf4j:slf4j-log4j12:1.7.5'
+    implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.4'
+    implementation 'org.json:org.json:2.0'
+    implementation 'com.googlecode.json-simple:json-simple:1.1'
 //    implementation 'com.robotemi:sdk:0.10.63'
 
 }
