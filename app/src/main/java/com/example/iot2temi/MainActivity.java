@@ -3,17 +3,11 @@ package com.example.iot2temi;
 import androidx.appcompat.app.AppCompatActivity;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.microsoft.azure.eventhubs.ConnectionStringBuilder;
 import com.microsoft.azure.eventhubs.EventData;
@@ -29,7 +23,6 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.nio.charset.Charset;
 import java.net.URI;
@@ -45,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
     CustomGauge gauge2;
     CustomGauge gauge3;
     ProgressBar progress1;
+
+    boolean isFistVal = true;
+
+    int lasttemp;
+    int lasthum;
+    int inttemp;
+    int inthum;
+    int difftemp=0;
+    int diffhum=0;
 
 //    Button btnStart;
 //    Button btnStop;
@@ -111,18 +113,15 @@ public class MainActivity extends AppCompatActivity {
                             String msg = new String(receivedEvent.getBytes(), Charset.defaultCharset());
                             String msg2 = new String(receivedEvent.getBytes(), Charset.defaultCharset());
 
+                            // display the message
                             txtview.setText(msg);
-
 
                             Log.e(this.getClass().getName(),msg + "TTTTTTTTTTTTTTTTT");
 
-//                            Object s = receivedEvent.getObject().;
-
-                            int i = msg.indexOf(":");
+                            int i = msg.indexOf("t");
                             int y = msg.indexOf("y");
-                            String tempval = msg.substring(i+2,i+7);
-                            String humval = msg.substring(y+3,y+9);
-
+                            String tempval = msg.substring(i+13,i+18);
+                            String humval = msg.substring(y+3,y+8);
 
                             Log.e(this.getClass().getName(),tempval + "QQQQQQQQQQQQQQQ");
                             Log.e(this.getClass().getName(),humval + "RRRRRRRRRRRRRR");
@@ -130,14 +129,54 @@ public class MainActivity extends AppCompatActivity {
                             tempShowtxt.setText(tempval);
                             humShowtxt.setText(humval);
 
-                            int inttemp = (int)Math.round(Double.valueOf(tempval));
-                            int inthum = (Double.valueOf(humval).intValue());
+                            inttemp = Double.valueOf(tempval).intValue();
+                            inthum = (Double.valueOf(humval).intValue());
 
-//                            for
-                            gauge1.setValue(inttemp);
-                            gauge2.setValue(inthum);
-//                            progress1.setProgress(Integer.parseInt(tempval));
+                            if (isFistVal){
+                                gauge1.setValue(inttemp);
+                                gauge2.setValue(inthum);
+                                Log.e(this.getClass().getName(),"true");
+                                isFistVal = false;
+                                lasthum = inthum;
+                                lasttemp = inttemp;
+                            }else{
+                                difftemp = inttemp - lasttemp;
+                                Log.e(this.getClass().getName(), "lasttemp : " +(String.valueOf(lasttemp)));
+                                Log.e(this.getClass().getName(), "difftemp : " +(String.valueOf(difftemp)));
+                                diffhum = inthum - lasthum;
+                                Log.e(this.getClass().getName(), "lasthum : " +(String.valueOf(lasthum)));
+                                Log.e(this.getClass().getName(),"diffhum : " +(String.valueOf(diffhum)));
 
+                                if (difftemp < 0){
+                                    difftemp *= -1;
+                                    Runnable tempDrunnable = new TempDecRunnable(inthum, lasthum, diffhum);
+                                    new Thread(tempDrunnable).start();
+
+                                }else if (difftemp > 0){
+                                    Runnable tempIrunnable = new TempIncRunnable(inttemp, lasttemp, difftemp);
+                                    new Thread(tempIrunnable).start();
+
+                                }else if (difftemp == 0){
+                                    lasttemp = inttemp;
+                                }
+
+                                if (diffhum < 0){
+                                    diffhum *= -1;
+                                    Runnable humDrunnable = new HumDecRunnable(inthum, lasthum, diffhum);
+                                    new Thread(humDrunnable).start();
+
+                                }else if (difftemp > 0){
+
+                                    Runnable humIrunnable = new HumIncRunnable(inttemp, lasttemp, difftemp);
+                                    new Thread(humIrunnable).start();
+                                    try{Thread.sleep(500);
+                                    }catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else if (diffhum == 0){
+                                    lasthum = inthum;
+                                }
+                            }
 
                             System.out.println(String.format("Telemetry received:\n %s",
                                     new String(receivedEvent.getBytes(), Charset.defaultCharset())));
@@ -183,6 +222,109 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (ExecutionException|InterruptedException|IOException|URISyntaxException|EventHubException e){
             System.err.println("Exception : " + e);
+        }
+    }
+
+    public class TempIncRunnable implements Runnable {
+
+        public TempIncRunnable(int pres, int last, int diff){
+        }
+        @Override
+        public void run() {
+
+            for (int i = 1; i <= difftemp; i++){
+                if (lasttemp < 20){
+                    lasttemp = 20;
+                }else if(lasttemp >40){
+                    lasttemp = 40;
+                }
+                gauge1.setValue(lasttemp+=1);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//                Log.e(this.getClass().getName(),"Thread Success11111");
+            }
+            lasttemp = inttemp;
+        }
+    }
+
+    public class TempDecRunnable implements Runnable {
+
+        public TempDecRunnable(int pres, int last, int diff){
+
+        }
+        @Override
+        public void run() {
+
+            for (int i = 1; i <= difftemp; i++){
+                if (lasttemp < 20){
+                    lasttemp = 20;
+                }else if(lasttemp >40){
+                    lasttemp = 40;
+                }
+                gauge1.setValue(lasttemp-=1);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//                Log.e(this.getClass().getName(),"Thread Success22222");
+            }
+            lasttemp = inttemp;
+        }
+    }
+
+    public class HumIncRunnable implements Runnable {
+
+        public HumIncRunnable(int pres, int last, int diff){
+
+        }
+        @Override
+        public void run() {
+
+            for (int i = 1; i <= difftemp; i++) {
+                if (lasthum < 30){
+                    lasthum = 30;
+                }else if(lasthum >50){
+                    lasthum = 50;
+                }
+                gauge2.setValue(lasthum+=1);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//                Log.e(this.getClass().getName(),"Thread Success33333");
+            }
+            lasthum = inthum;
+        }
+    }
+
+    public class HumDecRunnable implements Runnable {
+
+        public HumDecRunnable(int pres, int last, int diff){
+
+        }
+        @Override
+        public void run() {
+
+            for (int i = 1; i <= diffhum; i++){
+                if (lasthum < 30){
+                    lasthum = 30;
+                }else if(lasthum >50){
+                    lasthum = 50;
+                }
+                gauge2.setValue(lasthum-=1);
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//                Log.e(this.getClass().getName(),"Thread Success444444");
+            }
+            lasthum = inthum;
         }
     }
 }
